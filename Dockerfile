@@ -20,6 +20,11 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     libonig-dev \
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    && docker-php-ext-install \
+    xml \
+    dom \
     curl
 
 # Clear cache
