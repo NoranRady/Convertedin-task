@@ -22,3 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::middleware('auth:api')->prefix('tasks')->group(function () {
+    Route::get('/', [TaskController::class, 'index']);
+    Route::post('/', [TaskController::class, 'store']);
+});

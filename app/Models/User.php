@@ -54,6 +54,11 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function getIsAdminAttribute()
+    {
+        return $this->attributes['is_admin'] == true;
+    }
+
     public function tasksAssignedTo()
     {
         return $this->hasMany(Task::class, 'assigned_to_id');
