@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TaskController;
+use App\Http\Controllers\Api\StatisticController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -26,4 +27,9 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::middleware('auth:api')->prefix('tasks')->group(function () {
     Route::get('/', [TaskController::class, 'index']);
     Route::post('/', [TaskController::class, 'store']);
+});
+
+Route::middleware('auth:api')->prefix('statistics')->group(function () {
+
+    Route::get('/top-users-with-task-counts/{count}', [StatisticController::class, 'getTopUsersWithTaskCounts'])->where('count', 10);    
 });
