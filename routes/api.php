@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('/authenticate', [AuthenticationController::class, 'authenticate']);
+Route::post('/logout', [AuthenticationController::class, 'logout']);
 
 Route::middleware(['jwt.verify'])->prefix('tasks')->group(function () {
     Route::get('/', [TaskController::class, 'index']);

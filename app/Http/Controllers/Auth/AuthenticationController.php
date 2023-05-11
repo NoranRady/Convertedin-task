@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
-
 class AuthenticationController extends Controller
 {
 
@@ -18,5 +16,15 @@ class AuthenticationController extends Controller
         }
 
         return response()->json(compact('token'));
+    }
+
+    public function logout(Request $request)
+    {
+        try {
+            JWTAuth::parseToken()->invalidate();
+            return response()->json(['message' => 'Successfully logged out'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Unable to logout, user not authenticated'], 401);
+        }
     }
 }
