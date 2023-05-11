@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\StatisticController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\AuthenticationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +22,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/authenticate', [AuthenticationController::class, 'authenticate']);
 
-Route::middleware('auth:api')->prefix('tasks')->group(function () {
+Route::middleware(['jwt.verify'])->prefix('tasks')->group(function () {
     Route::get('/', [TaskController::class, 'index']);
     Route::post('/', [TaskController::class, 'store']);
 });
 
-Route::middleware('auth:api')->prefix('statistics')->group(function () {
+Route::middleware(['jwt.verify'])->prefix('statistics')->group(function () {
 
     Route::get('/top-users-with-task-counts/{count}', [StatisticController::class, 'getTopUsersWithTaskCounts'])->where('count', 10);    
 });

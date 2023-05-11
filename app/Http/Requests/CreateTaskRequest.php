@@ -13,7 +13,6 @@ class CreateTaskRequest extends FormRequest
     
     public function authorize()
     {
-        dump(Auth::check() , Auth::user()->isAdmin);
         return Auth::check() && Auth::user()->isAdmin;
     }
 
@@ -24,6 +23,7 @@ class CreateTaskRequest extends FormRequest
             'title' => 'required|max:255',
             'description' => 'required',
             'assigned_to' => 'required|exists:users,id',
+            'assigned_by' => 'required|exists:users,id'
         ];
     }
 
