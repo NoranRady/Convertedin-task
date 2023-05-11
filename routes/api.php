@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\StatisticController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Auth\AuthenticationController;
 
 /*
@@ -29,6 +30,8 @@ Route::middleware(['jwt.verify'])->prefix('tasks')->group(function () {
     Route::get('/', [TaskController::class, 'index']);
     Route::post('/', [TaskController::class, 'store']);
 });
+
+Route::get('/users', [UserController::class, 'index'])->middleware(['jwt.verify']);
 
 Route::middleware(['jwt.verify'])->prefix('statistics')->group(function () {
 
