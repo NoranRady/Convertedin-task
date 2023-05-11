@@ -20,6 +20,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('login')->group(function () {
-    Route::get('/', [LoginController::class, 'login'])->name('login');
-});
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

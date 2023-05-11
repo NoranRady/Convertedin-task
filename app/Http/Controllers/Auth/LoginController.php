@@ -12,4 +12,9 @@ class LoginController extends Controller
         return view('login');
     }
 
+    public function logout()
+    {
+        return view('logout');
+    }
+
 }
