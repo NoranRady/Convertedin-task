@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Services\TaskService;
-use App\Jobs\UpdateStatistics;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateTaskRequest;
 
@@ -35,8 +34,6 @@ class TaskController extends Controller
     public function store(CreateTaskRequest $request)
     {
         $this->taskService->createTask($request->validated());
-         // Dispatch the UpdateStatistics job
-        UpdateStatistics::dispatch($request->validated()['assigned_to']);
         return response()->json(['message' => 'Task created successfully.']);
     }
 }
