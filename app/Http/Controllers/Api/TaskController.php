@@ -39,28 +39,4 @@ class TaskController extends Controller
         UpdateStatistics::dispatch($request->validated()['assigned_to']);
         return response()->json(['message' => 'Task created successfully.']);
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
