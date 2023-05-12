@@ -22,3 +22,7 @@ Route::get('/', function () {
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::prefix('tasks')->group(function () {
+    Route::get('/', [TaskController::class, 'show'])->name('tasks.index');
+});
