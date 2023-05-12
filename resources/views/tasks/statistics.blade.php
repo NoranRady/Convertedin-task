@@ -10,8 +10,10 @@
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');
         
-        const authToken = sessionStorage.getItem('authToken');
-
+        const authToken = sessionStorage.getItem('access_token');
+        if(!authToken){
+                window.location.href =  "{{ route('login') }}";
+            }
         axios.get('/api/statistics/top-users-with-task-counts/10', {
                 headers: {
                     'Authorization': 'Bearer ' + authToken

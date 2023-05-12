@@ -15,17 +15,18 @@ use App\Http\Controllers\StatisticsController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::middleware(['web'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-Route::get('/', function () {
-    return view('welcome');
+    Route::get('/login', [LoginController::class, 'login'])->name('login');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::middleware(['auth.session'])->prefix('tasks')->group(function () {
+        Route::get('/', [TaskController::class, 'show'])->name('tasks.index');
+        Route::get('/create', [TaskController::class, 'store'])->name('tasks.create');
+    });
+
+    Route::get('/statistics', [StatisticsController::class, 'statistics'])->name('tasks.statistics');
 });
-
-Route::get('/login', [LoginController::class, 'login'])->name('login');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
-Route::prefix('tasks')->group(function () {
-    Route::get('/', [TaskController::class, 'show'])->name('tasks.index');
-    Route::get('/create', [TaskController::class, 'store'])->name('tasks.create');
-});
-
-Route::get('/statistics', [StatisticsController::class, 'statistics'])->name('tasks.statistics');

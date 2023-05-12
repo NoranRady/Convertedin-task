@@ -31,8 +31,10 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         // Read the token from session storage
-        const authToken = sessionStorage.getItem('authToken');
-
+        const authToken = sessionStorage.getItem('access_token');
+        if(!authToken){
+            window.location.href =  "{{ route('login') }}";
+        }
         // Fetch users from the API 
         axios.get('/api/users?is_admin=0', {
                 headers: {

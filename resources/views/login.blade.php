@@ -20,16 +20,16 @@
         const password = form.elements.password.value;
 
         axios.post('/api/authenticate', {
-            email: email,
-            password: password
-        })
-        .then(function(response) {
-            const token = response.data.token;
-            sessionStorage.setItem('authToken', token);
-            window.location.href =  "{{ route('tasks.index') }}";
+                email: email,
+                password: password
             })
-        .catch(function(error) {
-            console.log(error.response.data);
-        });
+            .then(function(response) {
+                const token = response.data.token;
+                sessionStorage.setItem('access_token', token);
+                window.location.href =  "{{ route('tasks.index') }}";
+            })
+            .catch(function(error) {
+                console.log(error.response.data);
+            });
     });
 </script>

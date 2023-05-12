@@ -14,7 +14,6 @@ class AuthenticationController extends Controller
         if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
         return response()->json(compact('token'));
     }
 

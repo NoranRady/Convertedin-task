@@ -26,8 +26,10 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         $(document).ready(function() {
-            const authToken = sessionStorage.getItem('authToken');
-
+            const authToken = sessionStorage.getItem('access_token');
+            if(!authToken){
+                window.location.href =  "{{ route('login') }}";
+            }
             function loadPage(url) {
                 url += (url.includes('?') ? '&' : '?') + 'per_page=10';
                 axios.get(url, {
