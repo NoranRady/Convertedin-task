@@ -10,7 +10,7 @@ class StatisticRepository
     {
         return Statistic::with('user')
         ->orderBy('task_count', 'desc')
-        ->take(10)
+        ->take($count)
         ->get()
         ->map(function($stat) {
             return [
