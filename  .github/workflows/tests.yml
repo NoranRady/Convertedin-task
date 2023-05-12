@@ -1,0 +1,50 @@
+name: Laravel Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    services:
+      db_testing:
+        image: mysql:5.7.32
+        container_name: db_testing
+        restart: unless-stopped
+        tty: true
+        ports:
+          - "3307:3306"
+        environment:
+          MYSQL_DATABASE: test_database
+          MYSQL_USER: convertedIn
+          MYSQL_PASSWORD: P@ssword
+          MYSQL_ROOT_PASSWORD: password
+          SERVICE_TAGS: dev
+          SERVICE_NAME: mysql_testing
+        volumes:
+          - dbdata_testing:/var/lib/mysql/
+          - ./mysql/db_testing.cnf:/etc/mysql/conf.d/db_testing.cnf
+        networks:
+          - app-network
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build Docker images
+        run: docker-compose build
+
+      - name: Start Docker containers
+        run: docker-compose up -d
+
+      - name: Wait for containers to start
+        run: docker ps
+
+      - name: Run tests
+        run: docker-compose run --rm app php vendor/bin/phpunit
+
+      - name: Stop Docker containers
+        run: docker-compose down
