@@ -20,9 +20,9 @@ class TaskService
         return $this->taskRepository->getTasks($perPage);
     }
     
-    public function createTask(array $data, $assignedById) : Task
+    public function createTask(array $data) : Task
     {
-        $savedTask = $this->taskRepository->createTask($data['title'], $data['description'], $data['assigned_to'], $assignedById);
+        $savedTask = $this->taskRepository->createTask($data['title'], $data['description'], $data['assigned_to'], $data['assigned_by']);
         return $savedTask;
     }
 }
