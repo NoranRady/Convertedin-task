@@ -13,7 +13,7 @@ class UserRepository
         if ($isAdmin !== null){
             $query = $query->where('is_admin', $isAdmin);
         }
-
+        $query = $query->orderBy('name');
         return $query->get();
     }
 }
