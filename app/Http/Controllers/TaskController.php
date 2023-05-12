@@ -10,4 +10,8 @@ class TaskController extends Controller
         return view('tasks.index');
     }
 
+    public function store()
+    {
+        return view('tasks.create');
+    }
 }
