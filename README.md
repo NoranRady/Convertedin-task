@@ -1,5 +1,5 @@
 # Convertedin-task
-For First time Setup plz run the following commands:
+For First time Setup run the following commands:
 <pre>
 docker-compose up --build -d<br>
 docker-compose exec app composer install<br>
@@ -12,7 +12,7 @@ docker-compose exec app php artisan migrate --database=mysql_testing<br>
 docker-compose exec app php artisan db:seed<br>
 </pre>
 
-On Subsequents run only run the follwing:<br>
+On Subsequents runs only run the follwing:<br>
 <pre>
 docker-compose up --build -d<br>
 </pre>
