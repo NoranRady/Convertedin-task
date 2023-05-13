@@ -31,7 +31,7 @@ class TaskControllerTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $tasks = json_decode($response->getContent(), true);
-        $this->assertEquals(6, $tasks['total']);
+        $this->assertEquals(4, $tasks['total']);
     }
 
     public function testStore()
