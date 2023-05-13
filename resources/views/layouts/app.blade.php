@@ -25,7 +25,9 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}">Logout</a>
+                    <form id="logout-form">
+                        <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
                 </li>      
             </ul>
         </div>
@@ -34,6 +36,31 @@
     <div class="container mt-4">
         @yield('content')
     </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('logout-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const authToken = sessionStorage.getItem('access_token');
+            if (!authToken) {
+                console.log('User not authenticated');
+                return;
+            }
+            axios.post('/api/logout', {}, {
+                    headers: {
+                        'Authorization': 'Bearer ' + authToken
+                    }
+                })
+                .then(function(response) {
+                    sessionStorage.removeItem('access_token');
+                    window.location.href = "{{ route('login') }}";
+                })
+                .catch(function(error) {
+                    console.log(error.response.data);
+                });
+        });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

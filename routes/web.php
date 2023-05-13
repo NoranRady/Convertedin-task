@@ -21,8 +21,7 @@ Route::middleware(['web'])->group(function () {
     });
 
     Route::get('/login', [LoginController::class, 'login'])->name('login');
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
+    
     Route::middleware(['auth.session'])->prefix('tasks')->group(function () {
         Route::get('/', [TaskController::class, 'show'])->name('tasks.index');
         Route::get('/create', [TaskController::class, 'store'])->name('tasks.create');
