@@ -16,22 +16,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $connection = DB::connection('mysql');
 
-        // Create 10,000 users
-        $usersData = [];
-
-        for ($i = 0; $i < 10000; $i++) {
-            $usersData[] = [
-                'name' => 'User ' . ($i + 1),
-                'email' => 'user' . ($i + 1) . '@example.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'),
-                'remember_token' => Str::random(10),
-            ];
-        }
-        
-        User::factory()->connection($connection)->createMany($usersData);
+        User::factory()->count(10000)->create();
 
         // Create 100 admins
         $adminsData = [];
@@ -46,6 +32,6 @@ class UsersTableSeeder extends Seeder
             ];
         }
         
-        $connection->table('users')->insert($adminsData);
+        DB::table('users')->insert($adminsData);
     }
 }
